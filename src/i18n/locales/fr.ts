@@ -106,7 +106,7 @@ const fr: MessageSchema = {
     featured: [
       {
         name: 'Vue.js',
-        level: 'Avancé',
+        level: 'Confirmé',
         description:
           "Mon cœur de métier côté frontend. Je conçois des interfaces réactives et maintenables, sur Vue 2 comme Vue 3.",
         points: [
@@ -119,7 +119,7 @@ const fr: MessageSchema = {
       },
       {
         name: 'Symfony / PHP',
-        level: 'Confirmé',
+        level: 'Intermédiaire',
         description:
           "Mon socle backend : des APIs et applications robustes en PHP moderne, principalement avec Symfony.",
         points: [
@@ -164,6 +164,7 @@ const fr: MessageSchema = {
     subtitle: 'Quelques projets personnels. Clique sur une carte pour les découvrir.',
     openInNewTab: 'Ouvrir dans un nouvel onglet',
     objectiveLabel: 'Objectif',
+    comingSoon: 'À venir',
     items: [
       {
         title: 'Portfolio',
@@ -175,18 +176,13 @@ const fr: MessageSchema = {
         tags: ['Vue 3', 'TypeScript', 'Tailwind CSS', 'Vue Router', 'i18n'],
       },
       {
-        title: 'Side Project 2',
+        title: 'Quoridor en ligne',
         description:
-          "Courte description de ton projet : ce qu'il fait, la stack utilisée et ce que tu as appris.",
-        url: 'https://example.com',
-        tags: ['Nuxt', 'API'],
-      },
-      {
-        title: 'Side Project 3',
-        description:
-          "Courte description de ton projet : ce qu'il fait, la stack utilisée et ce que tu as appris.",
-        url: 'https://example.com',
-        tags: ['Docker', 'DevOps'],
+          'Une application web pour jouer au Quoridor en multijoueur, avec une IA maison proposant plusieurs niveaux de difficulté ou des parties entre amis.',
+        objective:
+          'Découvrir Svelte en mettant en ligne un jeu multijoueur complet, doublé d\'une IA maison à plusieurs niveaux de difficulté.',
+        status: 'incoming',
+        tags: ['Svelte', 'TypeScript', 'Tailwind CSS', 'Multijoueur', 'IA'],
       },
     ],
   },

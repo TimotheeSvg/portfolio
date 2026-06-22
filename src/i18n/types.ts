@@ -29,8 +29,9 @@ export interface ProjectItem {
   title: string
   description: string
   objective?: string
-  url: string
+  url?: string
   tags: string[]
+  status?: 'incoming'
 }
 
 /**
@@ -86,6 +87,7 @@ export interface MessageSchema {
     subtitle: string
     openInNewTab: string
     objectiveLabel: string
+    comingSoon: string
     items: ProjectItem[]
   }
   footer: {

@@ -96,7 +96,7 @@ const en: MessageSchema = {
     featured: [
       {
         name: 'Vue.js',
-        level: 'Advanced',
+        level: 'Confirmed',
         description:
           'My frontend specialty. I build reactive, maintainable interfaces, with both Vue 2 and Vue 3.',
         points: [
@@ -109,7 +109,7 @@ const en: MessageSchema = {
       },
       {
         name: 'Symfony / PHP',
-        level: 'Proficient',
+        level: 'Intermediate',
         description:
           'My backend foundation: robust APIs and applications in modern PHP, mainly with Symfony.',
         points: [
@@ -154,6 +154,7 @@ const en: MessageSchema = {
     subtitle: 'A few personal projects. Click a card to check them out.',
     openInNewTab: 'Open in a new tab',
     objectiveLabel: 'Goal',
+    comingSoon: 'Coming soon',
     items: [
       {
         title: 'Portfolio',
@@ -165,18 +166,13 @@ const en: MessageSchema = {
         tags: ['Vue 3', 'TypeScript', 'Tailwind CSS', 'Vue Router', 'i18n'],
       },
       {
-        title: 'Side Project 2',
+        title: 'Online Quoridor',
         description:
-          'Short description of your project: what it does, the stack used and what you learned.',
-        url: 'https://example.com',
-        tags: ['Nuxt', 'API'],
-      },
-      {
-        title: 'Side Project 3',
-        description:
-          'Short description of your project: what it does, the stack used and what you learned.',
-        url: 'https://example.com',
-        tags: ['Docker', 'DevOps'],
+          'A web app to play Quoridor in multiplayer, with a homemade AI offering several difficulty levels or matches against friends.',
+        objective:
+          'Learning Svelte by shipping a complete online multiplayer game, paired with a homemade AI featuring several difficulty levels.',
+        status: 'incoming',
+        tags: ['Svelte', 'TypeScript', 'Tailwind CSS', 'Multiplayer', 'AI'],
       },
     ],
   },
