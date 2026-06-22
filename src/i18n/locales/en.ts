@@ -18,8 +18,6 @@ const en: MessageSchema = {
   hero: {
     greeting: 'Hello',
     titleLead: 'Full-Stack Developer',
-    titleHighlight: 'Vue.js',
-    titleTail: '& Symfony',
     intro:
       "Passionate about computer science for as long as I can remember, I love building clean, well-architected web applications. From reactive frontends to robust backends, I enjoy turning an idea into a real product. Always curious, I also explore DevOps to master the whole chain end to end.",
     ctaSkills: 'View my skills',
@@ -28,36 +26,30 @@ const en: MessageSchema = {
   education: {
     eyebrow: 'My background',
     title: 'Education',
-    subtitle: "From Craponne to a Master's degree in software architecture.",
     items: [
       {
-        period: 'Middle school',
         school: 'Collège de Craponne',
         location: 'Craponne (69290)',
         degree: 'Brevet des collèges',
       },
       {
-        period: 'High school',
         school: 'Lycée La Martinière Monplaisir',
         location: 'Lyon 8',
         degree: 'STI2D Baccalaureate',
         details: 'AC option (Architecture and Construction)',
       },
       {
-        period: 'Higher Technician Certificate',
         school: 'ORT Lyon',
         location: 'Lyon',
         degree: 'BTS SNIR',
         details: 'Digital Systems, IT and Networks option',
       },
       {
-        period: "Bachelor's",
         school: 'ESGI Lyon',
         location: 'Lyon',
         degree: "Bachelor's in Software Architecture",
       },
       {
-        period: "Master's",
         school: 'ESGI Lyon',
         location: 'Lyon',
         degree: "Master's in Software Architecture",
