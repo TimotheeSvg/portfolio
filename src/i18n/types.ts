@@ -25,13 +25,17 @@ export interface FeaturedSkill {
   tags: string[]
 }
 
+export type ProjectStatus = 'inProgress' | 'incoming'
+
 export interface ProjectItem {
   title: string
   description: string
   objective?: string
+  highlights?: string[]
   url?: string
   tags: string[]
-  status?: 'incoming'
+  status?: ProjectStatus
+  featured?: boolean
 }
 
 /**
@@ -53,6 +57,9 @@ export interface MessageSchema {
   language: {
     label: string
   }
+  common: {
+    newTab: string
+  }
   hero: {
     greeting: string
     titleLead: string
@@ -61,18 +68,15 @@ export interface MessageSchema {
     ctaProjects: string
   }
   education: {
-    eyebrow: string
     title: string
     items: EducationItem[]
   }
   experience: {
-    eyebrow: string
     title: string
     subtitle: string
     items: ExperienceItem[]
   }
   skills: {
-    eyebrow: string
     title: string
     subtitle: string
     levelLabel: string
@@ -82,12 +86,12 @@ export interface MessageSchema {
     tools: string[]
   }
   projects: {
-    eyebrow: string
     title: string
     subtitle: string
-    openInNewTab: string
     objectiveLabel: string
-    comingSoon: string
+    stackLabel: string
+    viewCode: string
+    status: Record<ProjectStatus, string>
     items: ProjectItem[]
   }
   footer: {

@@ -6,11 +6,11 @@ const year = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="mt-auto border-t border-[var(--color-border)]">
+  <footer class="mt-auto border-t border-border">
     <div
-      class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 px-6 py-8 text-sm text-[var(--color-muted)] sm:flex-row"
+      class="mx-auto flex max-w-5xl flex-col items-start justify-between gap-2 px-6 py-8 text-sm text-muted sm:flex-row sm:items-center"
     >
-      <p>© {{ year }} — {{ t('footer.copyright') }}</p>
+      <p>© {{ year }} {{ t('footer.copyright') }}</p>
       <p>{{ t('footer.built') }}</p>
     </div>
   </footer>

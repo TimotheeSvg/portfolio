@@ -7,6 +7,8 @@ import TimelineList from '../components/TimelineList.vue'
 import TagBadge from '../components/TagBadge.vue'
 import type { EducationItem, ExperienceItem } from '../i18n/types'
 
+const GITHUB_URL = 'https://github.com/TimotheeSvg'
+
 const { t, tm, locale } = useI18n()
 
 const educationItems = computed<EducationItem[]>(() => {
@@ -23,81 +25,76 @@ const experienceItems = computed<ExperienceItem[]>(() => {
 <template>
   <div>
     <!-- Hero / présentation -->
-    <section class="mx-auto w-full max-w-5xl px-6 pt-20 pb-10 sm:pt-28">
-    <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-[var(--color-accent-soft)]">
-      {{ t('hero.greeting') }} 👋
-    </p>
-    <h1 class="text-4xl font-bold leading-tight text-white sm:text-6xl">
-      {{ t('hero.titleLead') }}
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-      {{ t('hero.intro') }}
-    </p>
-    <div class="mt-8 flex flex-wrap gap-3">
-      <RouterLink
-        to="/skills"
-        class="rounded-lg bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-accent-soft)]"
-      >
-        {{ t('hero.ctaSkills') }}
-      </RouterLink>
-      <RouterLink
-        to="/projects"
-        class="rounded-lg border border-[var(--color-border)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-surface)]"
-      >
-        {{ t('hero.ctaProjects') }}
-      </RouterLink>
-    </div>
-  </section>
+    <section class="mx-auto w-full max-w-5xl px-6 pt-20 pb-10 sm:pt-28 sm:pb-14">
+      <p class="text-sm font-medium text-accent">{{ t('hero.greeting') }}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+        {{ t('hero.titleLead') }}
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-body">
+        {{ t('hero.intro') }}
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <RouterLink
+          to="/projects"
+          class="rounded-md bg-ink px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink/85"
+        >
+          {{ t('hero.ctaProjects') }}
+        </RouterLink>
+        <RouterLink
+          to="/skills"
+          class="rounded-md border border-border-strong bg-surface px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-subtle"
+        >
+          {{ t('hero.ctaSkills') }}
+        </RouterLink>
+        <a
+          :href="GITHUB_URL"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ml-1 inline-flex items-center gap-1 px-1 py-2.5 text-sm font-medium text-muted transition-colors hover:text-ink"
+        >
+          GitHub
+          <span class="sr-only">({{ t('common.newTab') }})</span>
+          <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
+            <path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M5.5 3.5h7v7M12.5 3.5l-9 9" />
+          </svg>
+        </a>
+      </div>
+    </section>
 
-  <!-- Parcours scolaire -->
-  <AppSection
-    id="parcours"
-    :eyebrow="t('education.eyebrow')"
-    :title="t('education.title')"
-    :subtitle="t('education.subtitle')"
-  >
-    <TimelineList :items="educationItems" />
-  </AppSection>
+    <!-- Expérience -->
+    <AppSection
+      id="experience"
+      :title="t('experience.title')"
+      :subtitle="t('experience.subtitle')"
+    >
+      <ol class="divide-y divide-border border-y border-border">
+        <li
+          v-for="(item, index) in experienceItems"
+          :key="index"
+          class="grid gap-x-10 gap-y-1 py-7 sm:grid-cols-[8rem_1fr]"
+        >
+          <p class="text-sm text-muted sm:pt-0.5">{{ item.period }}</p>
+          <article>
+            <h3 class="font-semibold text-ink">{{ item.role }}</h3>
+            <p class="mt-2 max-w-2xl text-body">{{ item.description }}</p>
 
-  <!-- Expérience -->
-  <AppSection
-    id="experience"
-    :eyebrow="t('experience.eyebrow')"
-    :title="t('experience.title')"
-    :subtitle="t('experience.subtitle')"
-  >
-    <div class="space-y-6">
-      <article
-        v-for="(item, index) in experienceItems"
-        :key="index"
-        class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8"
-      >
-        <div class="flex flex-wrap items-baseline justify-between gap-2">
-          <h3 class="text-xl font-semibold text-white">{{ item.role }}</h3>
-          <span class="text-sm font-medium text-[var(--color-accent-soft)]">
-            {{ item.period }}
-          </span>
-        </div>
-        <p class="mt-3 text-[var(--color-muted)]">{{ item.description }}</p>
+            <ul class="mt-4 list-disc space-y-1.5 pl-5 text-sm text-body marker:text-border-strong">
+              <li v-for="(highlight, hIndex) in item.highlights" :key="hIndex">
+                {{ highlight }}
+              </li>
+            </ul>
 
-        <ul class="mt-5 space-y-2">
-          <li
-            v-for="(highlight, hIndex) in item.highlights"
-            :key="hIndex"
-            class="flex items-start gap-3 text-sm text-gray-300"
-          >
-            <span
-              class="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-accent)]"
-            />
-            {{ highlight }}
-          </li>
-        </ul>
+            <div class="mt-5 flex flex-wrap gap-1.5">
+              <TagBadge v-for="tech in item.stack" :key="tech" :label="tech" />
+            </div>
+          </article>
+        </li>
+      </ol>
+    </AppSection>
 
-        <div class="mt-6 flex flex-wrap gap-2">
-          <TagBadge v-for="tech in item.stack" :key="tech" :label="tech" />
-        </div>
-      </article>
-    </div>
-  </AppSection>
+    <!-- Parcours scolaire -->
+    <AppSection id="parcours" :title="t('education.title')">
+      <TimelineList :items="educationItems" />
+    </AppSection>
   </div>
 </template>

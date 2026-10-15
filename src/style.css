@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0a0a0f;
-  --color-surface: #14141f;
-  --color-surface-hover: #1d1d2c;
-  --color-border: #262636;
-  --color-accent: #6366f1;
-  --color-accent-soft: #818cf8;
-  --color-muted: #9ca3af;
+  --color-bg: #fafaf9;
+  --color-surface: #ffffff;
+  --color-subtle: #f3f3f1;
+  --color-border: #e5e4e0;
+  --color-border-strong: #cfcdc7;
+  --color-ink: #18181b;
+  --color-body: #3f3f46;
+  --color-muted: #6b6b73;
+  --color-accent: #1d4ed8;
+  --color-accent-hover: #1e40af;
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     sans-serif;
 }
 
@@ -21,8 +24,9 @@ body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--color-bg);
-  color: #e5e7eb;
+  color: var(--color-body);
   font-family: var(--font-sans);
+  font-feature-settings: "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -33,19 +37,12 @@ body {
   flex-direction: column;
 }
 
-/* Subtle radial glow behind the page */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(60% 50% at 50% 0%, rgba(99, 102, 241, 0.12), transparent 70%),
-    radial-gradient(40% 40% at 100% 100%, rgba(129, 140, 248, 0.08), transparent 70%);
-  pointer-events: none;
+::selection {
+  background: #dbe4fb;
+  color: var(--color-ink);
 }
 
-::selection {
-  background: var(--color-accent);
-  color: white;
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }

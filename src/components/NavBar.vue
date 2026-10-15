@@ -15,24 +15,18 @@ const open = ref(false)
 </script>
 
 <template>
-  <header
-    class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur"
-  >
-    <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-      <RouterLink to="/" class="text-lg font-bold tracking-tight text-white">
-        <span class="text-[var(--color-accent-soft)]">&lt;</span>Portfolio<span
-          class="text-[var(--color-accent-soft)]"
-          >/&gt;</span
-        >
+  <header class="sticky top-0 z-50 border-b border-border bg-bg/90 backdrop-blur-sm">
+    <nav class="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
+      <RouterLink to="/" class="text-[15px] font-semibold tracking-tight text-ink">
+        Portfolio
       </RouterLink>
 
-      <div class="hidden items-center gap-4 sm:flex">
-        <ul class="flex items-center gap-1">
-          <li v-for="link in links" :key="link.to">
+      <div class="hidden h-full items-center gap-8 sm:flex">
+        <ul class="flex h-full items-center gap-7">
+          <li v-for="link in links" :key="link.to" class="h-full">
             <RouterLink
               :to="link.to"
-              class="rounded-lg px-4 py-2 text-sm font-medium text-[var(--color-muted)] transition-colors hover:text-white"
-              active-class="!text-white bg-[var(--color-surface)]"
+              class="relative flex h-full items-center text-sm font-medium text-muted transition-colors after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 hover:text-ink aria-[current=page]:text-ink aria-[current=page]:after:bg-ink"
             >
               {{ link.name }}
             </RouterLink>
@@ -44,13 +38,14 @@ const open = ref(false)
       <div class="flex items-center gap-3 sm:hidden">
         <LanguageSwitcher />
         <button
-          class="rounded-lg p-2 text-gray-300 transition-colors hover:bg-[var(--color-surface)]"
+          class="rounded-md p-2 text-body transition-colors hover:bg-subtle"
           aria-label="Menu"
+          :aria-expanded="open"
           @click="open = !open"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
+            class="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -58,23 +53,19 @@ const open = ref(false)
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
-              :d="open ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'"
+              stroke-width="1.75"
+              :d="open ? 'M6 18L18 6M6 6l12 12' : 'M4 7h16M4 12h16M4 17h16'"
             />
           </svg>
         </button>
       </div>
     </nav>
 
-    <ul
-      v-if="open"
-      class="border-t border-[var(--color-border)] px-6 py-2 sm:hidden"
-    >
+    <ul v-if="open" class="border-t border-border px-6 py-2 sm:hidden">
       <li v-for="link in links" :key="link.to">
         <RouterLink
           :to="link.to"
-          class="block rounded-lg px-4 py-3 text-sm font-medium text-[var(--color-muted)] transition-colors hover:text-white"
-          active-class="!text-white"
+          class="block py-3 text-sm font-medium text-muted transition-colors hover:text-ink aria-[current=page]:text-ink"
           @click="open = false"
         >
           {{ link.name }}

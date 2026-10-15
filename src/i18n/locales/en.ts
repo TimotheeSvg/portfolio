@@ -4,16 +4,19 @@ const en: MessageSchema = {
   nav: {
     home: 'Home',
     skills: 'Skills',
-    projects: 'Side Projects',
+    projects: 'Projects',
   },
   meta: {
     base: 'Portfolio',
     home: 'Home',
     skills: 'Skills',
-    projects: 'Side Projects',
+    projects: 'Projects',
   },
   language: {
     label: 'Language',
+  },
+  common: {
+    newTab: 'new tab',
   },
   hero: {
     greeting: 'Hello',
@@ -21,43 +24,51 @@ const en: MessageSchema = {
     intro:
       "Passionate about computer science for as long as I can remember, I love building clean, well-architected web applications. From reactive frontends to robust backends, I enjoy turning an idea into a real product. Always curious, I also explore DevOps to master the whole chain end to end.",
     ctaSkills: 'View my skills',
-    ctaProjects: 'My side projects',
+    ctaProjects: 'View my projects',
   },
   education: {
-    eyebrow: 'My background',
     title: 'Education',
     items: [
       {
-        school: 'Collège de Craponne',
-        location: 'Craponne (69290)',
-        degree: 'Brevet des collèges',
+        school: 'ESGI Lyon',
+        location: 'Lyon 3',
+        degree: "Master's in Software Architecture (work-study)",
+        url: 'https://www.esgi.fr/programmes/architecture-logiciels.html',
+        url_text: 'View the programme',
+        years: '2023 - 2025',
+      },
+      {
+        school: 'ESGI Lyon',
+        location: 'Lyon 3',
+        degree: "Bachelor's in Software Architecture (work-study)",
+        url: 'https://www.esgi.fr/programmes/architecture-logiciels.html',
+        url_text: 'View the programme',
+        years: '2022 - 2023',
+      },
+      {
+        school: 'ORT Lyon',
+        location: 'Lyon 8',
+        degree: 'BTS SNIR',
+        details: 'Digital Systems, IT and Networks option',
+        url: 'https://ort-france.fr/formation/bts-ciel-cybersecurite-informatique-et-reseaux-electronique/',
+        url_text: 'View the programme',
+        years: '2020 - 2022',
       },
       {
         school: 'Lycée La Martinière Monplaisir',
         location: 'Lyon 8',
         degree: 'STI2D Baccalaureate',
         details: 'AC option (Architecture and Construction)',
+        years: '2016 - 2019',
       },
       {
-        school: 'ORT Lyon',
-        location: 'Lyon',
-        degree: 'BTS SNIR',
-        details: 'Digital Systems, IT and Networks option',
-      },
-      {
-        school: 'ESGI Lyon',
-        location: 'Lyon',
-        degree: "Bachelor's in Software Architecture",
-      },
-      {
-        school: 'ESGI Lyon',
-        location: 'Lyon',
-        degree: "Master's in Software Architecture",
+        school: 'Collège de Craponne',
+        location: 'Craponne (69290)',
+        degree: 'Brevet des collèges',
       },
     ],
   },
   experience: {
-    eyebrow: 'Professional',
     title: 'Experience',
     subtitle: 'What I worked on in a professional setting.',
     items: [
@@ -89,8 +100,7 @@ const en: MessageSchema = {
     ],
   },
   skills: {
-    eyebrow: 'Skills',
-    title: 'My skills',
+    title: 'Skills',
     subtitle: 'My core areas of expertise, and the tools I use day to day.',
     levelLabel: 'Level',
     featured: [
@@ -149,21 +159,44 @@ const en: MessageSchema = {
     ],
   },
   projects: {
-    eyebrow: 'Personal work',
-    title: 'Side Projects',
-    subtitle: 'A few personal projects. Click a card to check them out.',
-    openInNewTab: 'Open in a new tab',
+    title: 'Projects',
+    subtitle: 'A selection of personal projects, designed and built end to end.',
     objectiveLabel: 'Goal',
-    comingSoon: 'Coming soon',
+    stackLabel: 'Tech stack',
+    viewCode: 'Source code',
+    status: {
+      inProgress: 'In development',
+      incoming: 'Coming soon',
+    },
     items: [
       {
-        title: 'Portfolio',
+        title: 'Stock-Easy',
+        featured: true,
         description:
-          'This portfolio, built with Vue 3, TypeScript and Tailwind CSS, and fully bilingual (FR / EN).',
-        objective:
-          'Putting my first project online and using it as a springboard to publish my future projects.',
-        url: 'https://github.com',
-        tags: ['Vue 3', 'TypeScript', 'Tailwind CSS', 'Vue Router', 'i18n'],
+          'A web app for managing stock and offcuts in workshops that cut panels: the warehouse is drawn with the mouse, storage is organised across several levels, and the app computes production capacity from the available offcuts.',
+        highlights: [
+          'Interactive floor-plan editor on canvas (buildings, storage units, levels, doors)',
+          'Field mode as a PWA, with an offline operation queue and idempotent writes',
+          'QR labels, per-storage sorting rules and location suggestions',
+          'Stock value statistics, Excel, CSV, DXF and PDF exports, Stripe subscriptions',
+          'Automatically enforced layered architecture, GitHub Actions CI and Docker deployment',
+        ],
+        tags: ['Vue 3', 'Pinia', 'Konva', 'Tailwind CSS', 'Django', 'DRF', 'PostgreSQL', 'Celery', 'Redis', 'Docker'],
+      },
+      {
+        title: 'ChessCoach',
+        featured: true,
+        status: 'inProgress',
+        description:
+          'A chess coaching app: players link their Chess.com account, their games are imported and analysed by Stockfish, then they review them move by move or train on puzzles built from their own mistakes.',
+        highlights: [
+          'Server-side Stockfish analysis: move classification, evaluation graph, key moments and variations',
+          "Puzzles generated from the player's own mistakes",
+          '"Human-like" move suggestions with the Maia model, running in a dedicated PyTorch worker',
+          'Heavy work handled by Celery tasks over RabbitMQ, with real-time progress pushed through Mercure (SSE)',
+          'JWT authentication in HttpOnly cookies, email verification and personal data export (GDPR)',
+        ],
+        tags: ['Vue 3', 'Quasar', 'Pinia', 'Django', 'DRF', 'Celery', 'RabbitMQ', 'PostgreSQL', 'Stockfish', 'PyTorch'],
       },
       {
         title: 'Online Quoridor',
@@ -173,6 +206,15 @@ const en: MessageSchema = {
           'Learning Svelte by shipping a complete online multiplayer game, paired with a homemade AI featuring several difficulty levels.',
         status: 'incoming',
         tags: ['Svelte', 'TypeScript', 'Tailwind CSS', 'Multiplayer', 'AI'],
+      },
+      {
+        title: 'Portfolio',
+        description:
+          'This portfolio, built with Vue 3, TypeScript and Tailwind CSS, and fully bilingual (FR / EN).',
+        objective:
+          'Putting my first project online and using it as a springboard to publish my future projects.',
+        url: 'https://github.com/TimotheeSvg/portfolio',
+        tags: ['Vue 3', 'TypeScript', 'Tailwind CSS', 'Vue Router', 'i18n'],
       },
     ],
   },
