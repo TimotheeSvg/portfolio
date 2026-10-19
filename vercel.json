@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!assets/|projets/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

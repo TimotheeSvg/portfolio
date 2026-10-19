@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import AppSection from '../components/AppSection.vue'
 import TagBadge from '../components/TagBadge.vue'
@@ -15,6 +16,8 @@ const items = computed<ProjectItem[]>(() => {
 const featured = computed(() => items.value.filter((project) => project.featured))
 const others = computed(() => items.value.filter((project) => !project.featured))
 
+const caseStudyRoute = (slug: string) => ({ name: 'case-study', params: { slug } })
+
 const statusDot: Record<ProjectStatus, string> = {
   inProgress: 'bg-amber-500',
   incoming: 'bg-border-strong',
@@ -26,10 +29,34 @@ const statusDot: Record<ProjectStatus, string> = {
     <!-- Projets principaux -->
     <div class="space-y-6">
       <article
-        v-for="project in featured"
+        v-for="(project, index) in featured"
         :key="project.title"
         class="rounded-lg border border-border bg-surface p-6 sm:p-8"
       >
+        <!-- Doublon visuel du lien « Voir l'étude de cas » : hors du parcours clavier. -->
+        <component
+          :is="project.caseStudy ? RouterLink : 'div'"
+          v-if="project.cover"
+          v-bind="
+            project.caseStudy
+              ? { to: caseStudyRoute(project.caseStudy), tabindex: -1, 'aria-hidden': 'true' }
+              : {}
+          "
+          class="mb-6 block"
+        >
+          <img
+            :src="project.cover.srcSm"
+            :srcset="`${project.cover.srcSm} 1200w, ${project.cover.src} 2400w`"
+            sizes="(min-width: 1024px) 912px, 100vw"
+            :alt="project.cover.alt"
+            width="1200"
+            height="750"
+            :loading="index === 0 ? 'eager' : 'lazy'"
+            decoding="async"
+            class="aspect-[16/10] w-full rounded-md border border-border object-cover object-top"
+          />
+        </component>
+
         <div class="grid gap-x-10 gap-y-6 lg:grid-cols-[1fr_15rem]">
           <div>
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -42,6 +69,7 @@ const statusDot: Record<ProjectStatus, string> = {
                 {{ t(`projects.status.${project.status}`) }}
               </span>
             </div>
+            <p v-if="project.context" class="mt-1.5 text-sm text-muted">{{ project.context }}</p>
             <p class="mt-3 max-w-2xl text-body">{{ project.description }}</p>
 
             <ul
@@ -59,6 +87,14 @@ const statusDot: Record<ProjectStatus, string> = {
             <div class="mt-3 flex flex-wrap gap-1.5">
               <TagBadge v-for="tag in project.tags" :key="tag" :label="tag" />
             </div>
+            <RouterLink
+              v-if="project.caseStudy"
+              :to="caseStudyRoute(project.caseStudy)"
+              class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-hover hover:underline"
+            >
+              {{ t('projects.viewCaseStudy') }}
+              <span aria-hidden="true">→</span>
+            </RouterLink>
             <a
               v-if="project.url"
               :href="project.url"

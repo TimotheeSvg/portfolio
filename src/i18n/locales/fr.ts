@@ -1,4 +1,5 @@
 import type { MessageSchema } from '../types'
+import { gestionStockImage } from '../caseImages'
 
 const fr: MessageSchema = {
   nav: {
@@ -160,28 +161,36 @@ const fr: MessageSchema = {
   },
   projects: {
     title: 'Projets',
-    subtitle: 'Une sélection de projets personnels, conçus et développés de bout en bout.',
+    subtitle:
+      'Une sélection de projets, en mission ou personnels, conçus et développés de bout en bout.',
     objectiveLabel: 'Objectif',
     stackLabel: 'Stack technique',
     viewCode: 'Code source',
+    viewCaseStudy: "Voir l'étude de cas",
     status: {
       inProgress: 'En développement',
       incoming: 'À venir',
     },
     items: [
       {
-        title: 'Stock-Easy',
+        title: "Logiciel de gestion de stock et d'aide à la production",
+        context: 'Mission freelance · Atelier de découpe plastique (PME, région lyonnaise)',
         featured: true,
         description:
-          "Application web de gestion de stock et de chutes pour les ateliers qui débitent des panneaux : l'entrepôt est dessiné à la souris, les stockages sont organisés sur plusieurs étages et l'application calcule la capacité de production à partir des chutes disponibles.",
+          "Logiciel métier sur mesure, conçu, développé et mis en production seul : plan d'entrepôt, matière suivie par QR code, application terrain hors ligne et imbrication des pièces à découper sur les chutes réellement en stock. En service chez le client.",
         highlights: [
+          'Imbrication automatique des pièces DXF sur les plaques et les chutes en stock',
           'Éditeur de plan interactif sur canvas (bâtiments, stockages, étages, portes)',
-          "Mode terrain en PWA, avec une file d'opérations hors ligne et des écritures idempotentes",
-          "Étiquettes QR, règles de tri par stockage et suggestion d'emplacement",
-          'Statistiques de valeur du stock, exports Excel, CSV, DXF et PDF, abonnements Stripe',
-          'Architecture en couches vérifiée automatiquement, CI GitHub Actions et déploiement Docker',
+          "Application terrain en PWA, avec une file d'opérations hors ligne",
+          'Étiquettes QR, plans cotés exportables en DXF, SVG et PDF, cotation par photo (OpenCV)',
+          'Calculs lourds dans des workers Celery, déploiement Docker, CI GitHub Actions',
         ],
         tags: ['Vue 3', 'Pinia', 'Konva', 'Tailwind CSS', 'Django', 'DRF', 'PostgreSQL', 'Celery', 'Redis', 'Docker'],
+        cover: {
+          ...gestionStockImage('imbrication-sur-chute'),
+          alt: 'Pièces imbriquées sur une chute de plastique dans le logiciel',
+        },
+        caseStudy: 'gestion-stock',
       },
       {
         title: 'ChessCoach',
@@ -217,6 +226,140 @@ const fr: MessageSchema = {
         tags: ['Vue 3', 'TypeScript', 'Tailwind CSS', 'Vue Router', 'i18n'],
       },
     ],
+  },
+  caseStudy: {
+    back: '← Tous les projets',
+    stackLabel: 'Stack technique',
+    enlarge: "Agrandir l'image",
+    notFound: "Cette étude de cas n'existe pas.",
+  },
+  caseStudies: {
+    'gestion-stock': {
+      title: "Logiciel de gestion de stock et d'aide à la production",
+      context: 'Mission freelance · Atelier de découpe plastique (PME, région lyonnaise)',
+      period: 'Livré en septembre 2026',
+      intro:
+        "Un logiciel métier sur mesure pour un atelier qui découpe des pièces dans des plaques de plastique. Je l'ai conçu, développé et mis en production seul, du recueil du besoin au déploiement. Il est aujourd'hui en service chez le client.",
+      sections: [
+        {
+          title: 'Le besoin',
+          paragraphs: [
+            "Retrouver rapidement la matière et les chutes en stock, et préparer la découpe des pièces à partir de ce qui est réellement disponible. Une chute n'a de valeur que si l'on sait qu'elle existe, où elle est rangée et ce qu'on peut y découper.",
+          ],
+        },
+        {
+          title: 'Préparer la découpe sur les chutes',
+          paragraphs: [
+            'On dépose les plans DXF des pièces à produire. Le logiciel les imbrique sur les plaques et les chutes réellement en stock, en visant au choix le moins de plaques entamées ou le moins de chute, puis indique quelles chutes sortir du rayon et où les trouver.',
+          ],
+          figures: [
+            {
+              ...gestionStockImage('imbrication-sur-chute'),
+              alt: 'Cinq pièces imbriquées sur une chute de PMMA',
+              caption: 'Cinq pièces imbriquées sur une chute de 740 × 130 mm.',
+            },
+            {
+              ...gestionStockImage('chutes-a-prendre'),
+              alt: 'Liste des chutes à sortir avec leur emplacement et leur étiquette QR',
+              caption:
+                'Les chutes à sortir avant la découpe, avec leur emplacement sur le plan et leur étiquette QR.',
+            },
+          ],
+        },
+        {
+          title: "Un entrepôt dessiné à l'échelle",
+          paragraphs: [
+            "Le plan de l'atelier se dessine dans le navigateur : bâtiments, cloisons, portes et stockages, sur plusieurs étages. Chaque pièce est rangée dans un stockage, à un niveau et dans une section précise.",
+          ],
+          figures: [
+            {
+              ...gestionStockImage('plan-entrepot'),
+              alt: "Éditeur de plan de l'entrepôt avec cinq stockages",
+              caption: "L'éditeur de plan, dessiné sur un canvas Konva.",
+            },
+          ],
+        },
+        {
+          title: 'Sur le terrain, même hors ligne',
+          paragraphs: [
+            "Une application mobile (PWA) sert à ranger, sortir et scanner les pièces dans l'atelier. Les opérations faites sans réseau sont mises en file d'attente et envoyées dès que la connexion revient.",
+          ],
+          figures: [
+            {
+              ...gestionStockImage('appli-terrain-mobile'),
+              alt: "Accueil de l'application terrain sur téléphone",
+              caption: "L'accueil de l'application terrain.",
+              mobile: true,
+            },
+          ],
+        },
+        {
+          title: 'Une fiche par pièce',
+          paragraphs: [
+            "Cotes, matière, épaisseur, emplacement et plan coté exportable en DXF, SVG ou PDF. Une étiquette QR collée sur la pièce rouvre sa fiche d'un simple scan. L'import d'un DXF pré-remplit la fiche, et une pièce peut aussi être cotée à partir d'une photo, grâce à un marqueur imprimé (OpenCV).",
+          ],
+          figures: [
+            {
+              ...gestionStockImage('fiche-piece-etiquette-qr'),
+              alt: "Fiche d'une pièce avec son plan coté et son étiquette QR",
+              caption: "La fiche d'une pièce : plan coté et étiquette QR.",
+            },
+          ],
+        },
+        {
+          title: 'Le stock en chiffres',
+          paragraphs: [
+            'Valeur du stock, surfaces et volumes par matière et par épaisseur, calculés à partir du prix au m² de chaque épaisseur.',
+          ],
+          figures: [
+            {
+              ...gestionStockImage('stats-valeur-stock'),
+              alt: 'Statistiques de valeur du stock par matière',
+              caption: 'Les statistiques par matière et par épaisseur.',
+            },
+            {
+              ...gestionStockImage('tableau-de-bord'),
+              alt: "Tableau de bord de l'entrepôt",
+              caption: "Le tableau de bord de l'entrepôt.",
+            },
+            {
+              ...gestionStockImage('stock'),
+              alt: 'Inventaire des pièces en stock',
+              caption: "L'inventaire, filtrable par matière et par épaisseur.",
+            },
+          ],
+        },
+        {
+          title: 'Sous le capot',
+          bullets: [
+            'Front : Vue 3, Pinia, Tailwind CSS, et Konva pour le plan.',
+            'API : Django REST Framework et PostgreSQL.',
+            "Calculs lourds (imbrication, mesure photo) dans des workers Celery dédiés, avec Redis, pour garder l'interface fluide.",
+            'Mise en production Docker sur un serveur Linux sécurisé (HTTPS, pare-feu), tests automatisés et intégration continue GitHub Actions.',
+          ],
+        },
+      ],
+      stack: [
+        'Vue 3',
+        'Pinia',
+        'Tailwind CSS',
+        'Konva',
+        'Django',
+        'DRF',
+        'PostgreSQL',
+        'Celery',
+        'Redis',
+        'OpenCV',
+        'Docker',
+        'GitHub Actions',
+      ],
+      note: 'Captures réalisées sur une instance de démonstration, avec des données fictives.',
+      cta: {
+        text: "Vous avez besoin d'un outil de gestion, de stock ou de production adapté à votre atelier ?",
+        linkLabel: 'Me contacter sur LinkedIn',
+        url: 'https://www.linkedin.com/in/timothee-sauvage/',
+      },
+    },
   },
   footer: {
     copyright: 'Portfolio',

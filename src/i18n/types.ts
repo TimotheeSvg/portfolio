@@ -27,8 +27,16 @@ export interface FeaturedSkill {
 
 export type ProjectStatus = 'inProgress' | 'incoming'
 
+export interface ProjectImage {
+  src: string
+  srcSm: string
+  alt: string
+}
+
 export interface ProjectItem {
   title: string
+  /** Ligne affichée sous le titre (cadre de la mission, par exemple). */
+  context?: string
   description: string
   objective?: string
   highlights?: string[]
@@ -36,6 +44,36 @@ export interface ProjectItem {
   tags: string[]
   status?: ProjectStatus
   featured?: boolean
+  cover?: ProjectImage
+  /** Slug de l'étude de cas associée (clé de `caseStudies`). */
+  caseStudy?: string
+}
+
+export interface CaseFigure extends ProjectImage {
+  caption: string
+  mobile?: boolean
+}
+
+export interface CaseSection {
+  title: string
+  paragraphs?: string[]
+  bullets?: string[]
+  figures?: CaseFigure[]
+}
+
+export interface CaseStudy {
+  title: string
+  context: string
+  period: string
+  intro: string
+  sections: CaseSection[]
+  stack: string[]
+  note: string
+  cta: {
+    text: string
+    linkLabel: string
+    url: string
+  }
 }
 
 /**
@@ -91,9 +129,17 @@ export interface MessageSchema {
     objectiveLabel: string
     stackLabel: string
     viewCode: string
+    viewCaseStudy: string
     status: Record<ProjectStatus, string>
     items: ProjectItem[]
   }
+  caseStudy: {
+    back: string
+    stackLabel: string
+    enlarge: string
+    notFound: string
+  }
+  caseStudies: Record<string, CaseStudy>
   footer: {
     copyright: string
     built: string

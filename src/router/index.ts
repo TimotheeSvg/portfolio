@@ -23,6 +23,13 @@ const router = createRouter({
       component: () => import('../views/ProjectsView.vue'),
       meta: { titleKey: 'meta.projects' },
     },
+    {
+      path: '/projects/:slug',
+      name: 'case-study',
+      component: () => import('../views/CaseStudyView.vue'),
+      props: true,
+      meta: { titleKey: 'meta.projects' },
+    },
   ],
   scrollBehavior() {
     return { top: 0 }
