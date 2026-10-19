@@ -179,17 +179,18 @@ const fr: MessageSchema = {
         description:
           "Logiciel métier sur mesure, conçu, développé et mis en production seul : plan d'entrepôt, matière suivie par QR code, application terrain hors ligne et imbrication des pièces à découper sur les chutes réellement en stock. En service chez le client.",
         highlights: [
-          'Imbrication automatique des pièces DXF sur les plaques et les chutes en stock',
           'Éditeur de plan interactif sur canvas (bâtiments, stockages, étages, portes)',
           "Application terrain en PWA, avec une file d'opérations hors ligne",
           'Étiquettes QR, plans cotés exportables en DXF, SVG et PDF, cotation par photo (OpenCV)',
+          'Imbrication automatique des pièces DXF sur les plaques et les chutes en stock',
           'Calculs lourds dans des workers Celery, déploiement Docker, CI GitHub Actions',
         ],
         tags: ['Vue 3', 'Pinia', 'Konva', 'Tailwind CSS', 'Django', 'DRF', 'PostgreSQL', 'Celery', 'Redis', 'Docker'],
-        cover: {
-          ...gestionStockImage('imbrication-sur-chute'),
-          alt: 'Pièces imbriquées sur une chute de plastique dans le logiciel',
-        },
+        gallery: [
+          { ...gestionStockImage('tableau-de-bord'), alt: "Tableau de bord de l'entrepôt" },
+          { ...gestionStockImage('plan-entrepot'), alt: "Plan de l'entrepôt avec ses stockages" },
+          { ...gestionStockImage('appli-terrain-mobile'), alt: 'Application terrain sur téléphone', mobile: true },
+        ],
         caseStudy: 'gestion-stock',
       },
       {
@@ -206,15 +207,6 @@ const fr: MessageSchema = {
           'Authentification JWT en cookies HttpOnly, vérification par e-mail et export des données (RGPD)',
         ],
         tags: ['Vue 3', 'Quasar', 'Pinia', 'Django', 'DRF', 'Celery', 'RabbitMQ', 'PostgreSQL', 'Stockfish', 'PyTorch'],
-      },
-      {
-        title: 'Quoridor en ligne',
-        description:
-          'Une application web pour jouer au Quoridor en multijoueur, avec une IA maison proposant plusieurs niveaux de difficulté ou des parties entre amis.',
-        objective:
-          'Découvrir Svelte en mettant en ligne un jeu multijoueur complet, doublé d\'une IA maison à plusieurs niveaux de difficulté.',
-        status: 'incoming',
-        tags: ['Svelte', 'TypeScript', 'Tailwind CSS', 'Multijoueur', 'IA'],
       },
       {
         title: 'Portfolio',
@@ -248,6 +240,64 @@ const fr: MessageSchema = {
           ],
         },
         {
+          title: "Tout le stock, en un coup d'œil",
+          paragraphs: [
+            "Le tableau de bord résume l'entrepôt : stockages, références, pièces et matières. L'inventaire liste chaque pièce avec ses cotes, sa matière, son épaisseur et son emplacement exact, filtrable par matière et par épaisseur.",
+          ],
+          figures: [
+            {
+              ...gestionStockImage('tableau-de-bord'),
+              alt: "Tableau de bord de l'entrepôt",
+              caption: "Le tableau de bord de l'entrepôt.",
+            },
+            {
+              ...gestionStockImage('stock'),
+              alt: 'Inventaire des pièces en stock',
+              caption: "L'inventaire, filtrable par matière et par épaisseur.",
+            },
+          ],
+        },
+        {
+          title: "Un entrepôt dessiné à l'échelle",
+          paragraphs: [
+            "Le plan de l'atelier se dessine dans le navigateur : bâtiments, cloisons, portes et stockages, sur plusieurs étages. Chaque pièce est rangée dans un stockage, à un niveau et dans une section précise.",
+          ],
+          figures: [
+            {
+              ...gestionStockImage('plan-entrepot'),
+              alt: "Éditeur de plan de l'entrepôt avec cinq stockages",
+              caption: "L'éditeur de plan, dessiné sur un canvas Konva.",
+            },
+          ],
+        },
+        {
+          title: 'Une fiche par pièce',
+          paragraphs: [
+            "Cotes, matière, épaisseur, emplacement et plan coté exportable en DXF, SVG ou PDF. Une étiquette QR collée sur la pièce rouvre sa fiche d'un simple scan. L'import d'un DXF pré-remplit la fiche, et une pièce peut aussi être cotée à partir d'une photo, grâce à un marqueur imprimé (OpenCV).",
+          ],
+          figures: [
+            {
+              ...gestionStockImage('fiche-piece-etiquette-qr'),
+              alt: "Fiche d'une pièce avec son plan coté et son étiquette QR",
+              caption: "La fiche d'une pièce : plan coté et étiquette QR.",
+            },
+          ],
+        },
+        {
+          title: 'Sur le terrain, même hors ligne',
+          paragraphs: [
+            "Une application mobile (PWA) sert à ranger, sortir et scanner les pièces dans l'atelier. Les opérations faites sans réseau sont mises en file d'attente et envoyées dès que la connexion revient.",
+          ],
+          figures: [
+            {
+              ...gestionStockImage('appli-terrain-mobile'),
+              alt: "Accueil de l'application terrain sur téléphone",
+              caption: "L'accueil de l'application terrain.",
+              mobile: true,
+            },
+          ],
+        },
+        {
           title: 'Préparer la découpe sur les chutes',
           paragraphs: [
             'On dépose les plans DXF des pièces à produire. Le logiciel les imbrique sur les plaques et les chutes réellement en stock, en visant au choix le moins de plaques entamées ou le moins de chute, puis indique quelles chutes sortir du rayon et où les trouver.',
@@ -267,46 +317,6 @@ const fr: MessageSchema = {
           ],
         },
         {
-          title: "Un entrepôt dessiné à l'échelle",
-          paragraphs: [
-            "Le plan de l'atelier se dessine dans le navigateur : bâtiments, cloisons, portes et stockages, sur plusieurs étages. Chaque pièce est rangée dans un stockage, à un niveau et dans une section précise.",
-          ],
-          figures: [
-            {
-              ...gestionStockImage('plan-entrepot'),
-              alt: "Éditeur de plan de l'entrepôt avec cinq stockages",
-              caption: "L'éditeur de plan, dessiné sur un canvas Konva.",
-            },
-          ],
-        },
-        {
-          title: 'Sur le terrain, même hors ligne',
-          paragraphs: [
-            "Une application mobile (PWA) sert à ranger, sortir et scanner les pièces dans l'atelier. Les opérations faites sans réseau sont mises en file d'attente et envoyées dès que la connexion revient.",
-          ],
-          figures: [
-            {
-              ...gestionStockImage('appli-terrain-mobile'),
-              alt: "Accueil de l'application terrain sur téléphone",
-              caption: "L'accueil de l'application terrain.",
-              mobile: true,
-            },
-          ],
-        },
-        {
-          title: 'Une fiche par pièce',
-          paragraphs: [
-            "Cotes, matière, épaisseur, emplacement et plan coté exportable en DXF, SVG ou PDF. Une étiquette QR collée sur la pièce rouvre sa fiche d'un simple scan. L'import d'un DXF pré-remplit la fiche, et une pièce peut aussi être cotée à partir d'une photo, grâce à un marqueur imprimé (OpenCV).",
-          ],
-          figures: [
-            {
-              ...gestionStockImage('fiche-piece-etiquette-qr'),
-              alt: "Fiche d'une pièce avec son plan coté et son étiquette QR",
-              caption: "La fiche d'une pièce : plan coté et étiquette QR.",
-            },
-          ],
-        },
-        {
           title: 'Le stock en chiffres',
           paragraphs: [
             'Valeur du stock, surfaces et volumes par matière et par épaisseur, calculés à partir du prix au m² de chaque épaisseur.',
@@ -316,16 +326,6 @@ const fr: MessageSchema = {
               ...gestionStockImage('stats-valeur-stock'),
               alt: 'Statistiques de valeur du stock par matière',
               caption: 'Les statistiques par matière et par épaisseur.',
-            },
-            {
-              ...gestionStockImage('tableau-de-bord'),
-              alt: "Tableau de bord de l'entrepôt",
-              caption: "Le tableau de bord de l'entrepôt.",
-            },
-            {
-              ...gestionStockImage('stock'),
-              alt: 'Inventaire des pièces en stock',
-              caption: "L'inventaire, filtrable par matière et par épaisseur.",
             },
           ],
         },

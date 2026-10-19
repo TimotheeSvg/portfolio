@@ -33,30 +33,6 @@ const statusDot: Record<ProjectStatus, string> = {
         :key="project.title"
         class="rounded-lg border border-border bg-surface p-6 sm:p-8"
       >
-        <!-- Doublon visuel du lien « Voir l'étude de cas » : hors du parcours clavier. -->
-        <component
-          :is="project.caseStudy ? RouterLink : 'div'"
-          v-if="project.cover"
-          v-bind="
-            project.caseStudy
-              ? { to: caseStudyRoute(project.caseStudy), tabindex: -1, 'aria-hidden': 'true' }
-              : {}
-          "
-          class="mb-6 block"
-        >
-          <img
-            :src="project.cover.srcSm"
-            :srcset="`${project.cover.srcSm} 1200w, ${project.cover.src} 2400w`"
-            sizes="(min-width: 1024px) 912px, 100vw"
-            :alt="project.cover.alt"
-            width="1200"
-            height="750"
-            :loading="index === 0 ? 'eager' : 'lazy'"
-            decoding="async"
-            class="aspect-[16/10] w-full rounded-md border border-border object-cover object-top"
-          />
-        </component>
-
         <div class="grid gap-x-10 gap-y-6 lg:grid-cols-[1fr_15rem]">
           <div>
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -80,6 +56,30 @@ const statusDot: Record<ProjectStatus, string> = {
                 {{ highlight }}
               </li>
             </ul>
+
+            <!-- Doublon visuel du lien « Voir l'étude de cas » : hors du parcours clavier. -->
+            <component
+              :is="project.caseStudy ? RouterLink : 'div'"
+              v-if="project.gallery?.length"
+              v-bind="
+                project.caseStudy
+                  ? { to: caseStudyRoute(project.caseStudy), tabindex: -1, 'aria-hidden': 'true' }
+                  : {}
+              "
+              class="mt-6 flex flex-wrap items-end gap-3"
+            >
+              <img
+                v-for="image in project.gallery"
+                :key="image.srcSm"
+                :src="image.srcSm"
+                :alt="image.alt"
+                :width="image.mobile ? 585 : 1200"
+                :height="image.mobile ? 1266 : 750"
+                :loading="index === 0 ? 'eager' : 'lazy'"
+                decoding="async"
+                class="h-24 w-auto rounded-md border border-border sm:h-28"
+              />
+            </component>
           </div>
 
           <div class="border-t border-border pt-5 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
@@ -112,7 +112,8 @@ const statusDot: Record<ProjectStatus, string> = {
     </div>
 
     <!-- Autres projets -->
-    <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <!-- Une carte seule prend toute la largeur plutôt que la moitié. -->
+    <div class="mt-6 grid gap-6" :class="others.length > 1 ? 'md:grid-cols-2' : ''">
       <article
         v-for="project in others"
         :key="project.title"

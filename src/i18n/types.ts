@@ -31,6 +31,8 @@ export interface ProjectImage {
   src: string
   srcSm: string
   alt: string
+  /** Capture verticale de téléphone (585 × 1266 en réduit) plutôt que d'écran (1200 × 750). */
+  mobile?: boolean
 }
 
 export interface ProjectItem {
@@ -44,14 +46,14 @@ export interface ProjectItem {
   tags: string[]
   status?: ProjectStatus
   featured?: boolean
-  cover?: ProjectImage
+  /** Petites vignettes affichées sur la carte, en lien vers l'étude de cas. */
+  gallery?: ProjectImage[]
   /** Slug de l'étude de cas associée (clé de `caseStudies`). */
   caseStudy?: string
 }
 
 export interface CaseFigure extends ProjectImage {
   caption: string
-  mobile?: boolean
 }
 
 export interface CaseSection {

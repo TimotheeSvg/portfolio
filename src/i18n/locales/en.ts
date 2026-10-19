@@ -178,17 +178,18 @@ const en: MessageSchema = {
         description:
           "Custom business software, designed, built and deployed on my own: warehouse floor plan, materials tracked with QR codes, an offline field app, and nesting of the parts to cut on the offcuts actually in stock. In use at the client's workshop.",
         highlights: [
-          'Automatic nesting of DXF parts on the sheets and offcuts in stock',
           'Interactive canvas floor plan editor (buildings, storage units, floors, doors)',
           'Field app as a PWA, with an offline operation queue',
           'QR labels, dimensioned drawings exported to DXF, SVG and PDF, photo-based measurement (OpenCV)',
+          'Automatic nesting of DXF parts on the sheets and offcuts in stock',
           'Heavy computations in Celery workers, Docker deployment, GitHub Actions CI',
         ],
         tags: ['Vue 3', 'Pinia', 'Konva', 'Tailwind CSS', 'Django', 'DRF', 'PostgreSQL', 'Celery', 'Redis', 'Docker'],
-        cover: {
-          ...gestionStockImage('imbrication-sur-chute'),
-          alt: 'Parts nested on a plastic offcut in the software',
-        },
+        gallery: [
+          { ...gestionStockImage('tableau-de-bord'), alt: 'Warehouse dashboard' },
+          { ...gestionStockImage('plan-entrepot'), alt: 'Warehouse plan with its storage units' },
+          { ...gestionStockImage('appli-terrain-mobile'), alt: 'Field app on a phone', mobile: true },
+        ],
         caseStudy: 'gestion-stock',
       },
       {
@@ -205,15 +206,6 @@ const en: MessageSchema = {
           'JWT authentication in HttpOnly cookies, email verification and personal data export (GDPR)',
         ],
         tags: ['Vue 3', 'Quasar', 'Pinia', 'Django', 'DRF', 'Celery', 'RabbitMQ', 'PostgreSQL', 'Stockfish', 'PyTorch'],
-      },
-      {
-        title: 'Online Quoridor',
-        description:
-          'A web app to play Quoridor in multiplayer, with a homemade AI offering several difficulty levels or matches against friends.',
-        objective:
-          'Learning Svelte by shipping a complete online multiplayer game, paired with a homemade AI featuring several difficulty levels.',
-        status: 'incoming',
-        tags: ['Svelte', 'TypeScript', 'Tailwind CSS', 'Multiplayer', 'AI'],
       },
       {
         title: 'Portfolio',
@@ -247,6 +239,64 @@ const en: MessageSchema = {
           ],
         },
         {
+          title: 'All the stock at a glance',
+          paragraphs: [
+            'The dashboard sums up the warehouse: storage units, references, parts and materials. The inventory lists every part with its dimensions, material, thickness and exact location, filterable by material and thickness.',
+          ],
+          figures: [
+            {
+              ...gestionStockImage('tableau-de-bord'),
+              alt: 'Warehouse dashboard',
+              caption: 'The warehouse dashboard.',
+            },
+            {
+              ...gestionStockImage('stock'),
+              alt: 'Inventory of parts in stock',
+              caption: 'The inventory, filterable by material and thickness.',
+            },
+          ],
+        },
+        {
+          title: 'A warehouse drawn to scale',
+          paragraphs: [
+            'The workshop plan is drawn in the browser: buildings, partitions, doors and storage units, across several floors. Every part is stored in a storage unit, on a given level and in a specific section.',
+          ],
+          figures: [
+            {
+              ...gestionStockImage('plan-entrepot'),
+              alt: 'Warehouse plan editor with five storage units',
+              caption: 'The plan editor, drawn on a Konva canvas.',
+            },
+          ],
+        },
+        {
+          title: 'One record per part',
+          paragraphs: [
+            'Dimensions, material, thickness, location and a dimensioned drawing exportable to DXF, SVG or PDF. A QR label stuck on the part reopens its record with a single scan. Importing a DXF pre-fills the record, and a part can also be measured from a photo using a printed marker (OpenCV).',
+          ],
+          figures: [
+            {
+              ...gestionStockImage('fiche-piece-etiquette-qr'),
+              alt: 'Part record with its dimensioned drawing and QR label',
+              caption: 'A part record: dimensioned drawing and QR label.',
+            },
+          ],
+        },
+        {
+          title: 'On the shop floor, even offline',
+          paragraphs: [
+            'A mobile app (PWA) is used to store, take out and scan parts in the workshop. Operations made without a network are queued and sent as soon as the connection is back.',
+          ],
+          figures: [
+            {
+              ...gestionStockImage('appli-terrain-mobile'),
+              alt: 'Home screen of the field app on a phone',
+              caption: 'The field app home screen.',
+              mobile: true,
+            },
+          ],
+        },
+        {
           title: 'Planning cuts on offcuts',
           paragraphs: [
             'You drop in the DXF drawings of the parts to produce. The software nests them on the sheets and offcuts actually in stock, aiming either for the fewest sheets started or for the least waste, then tells you which offcuts to take off the shelf and where to find them.',
@@ -266,46 +316,6 @@ const en: MessageSchema = {
           ],
         },
         {
-          title: 'A warehouse drawn to scale',
-          paragraphs: [
-            'The workshop plan is drawn in the browser: buildings, partitions, doors and storage units, across several floors. Every part is stored in a storage unit, on a given level and in a specific section.',
-          ],
-          figures: [
-            {
-              ...gestionStockImage('plan-entrepot'),
-              alt: 'Warehouse plan editor with five storage units',
-              caption: 'The plan editor, drawn on a Konva canvas.',
-            },
-          ],
-        },
-        {
-          title: 'On the shop floor, even offline',
-          paragraphs: [
-            'A mobile app (PWA) is used to store, take out and scan parts in the workshop. Operations made without a network are queued and sent as soon as the connection is back.',
-          ],
-          figures: [
-            {
-              ...gestionStockImage('appli-terrain-mobile'),
-              alt: 'Home screen of the field app on a phone',
-              caption: 'The field app home screen.',
-              mobile: true,
-            },
-          ],
-        },
-        {
-          title: 'One record per part',
-          paragraphs: [
-            'Dimensions, material, thickness, location and a dimensioned drawing exportable to DXF, SVG or PDF. A QR label stuck on the part reopens its record with a single scan. Importing a DXF pre-fills the record, and a part can also be measured from a photo using a printed marker (OpenCV).',
-          ],
-          figures: [
-            {
-              ...gestionStockImage('fiche-piece-etiquette-qr'),
-              alt: 'Part record with its dimensioned drawing and QR label',
-              caption: 'A part record: dimensioned drawing and QR label.',
-            },
-          ],
-        },
-        {
           title: 'Stock in figures',
           paragraphs: [
             'Stock value, areas and volumes by material and thickness, calculated from the price per m² of each thickness.',
@@ -315,16 +325,6 @@ const en: MessageSchema = {
               ...gestionStockImage('stats-valeur-stock'),
               alt: 'Stock value statistics by material',
               caption: 'Statistics by material and thickness.',
-            },
-            {
-              ...gestionStockImage('tableau-de-bord'),
-              alt: 'Warehouse dashboard',
-              caption: 'The warehouse dashboard.',
-            },
-            {
-              ...gestionStockImage('stock'),
-              alt: 'Inventory of parts in stock',
-              caption: 'The inventory, filterable by material and thickness.',
             },
           ],
         },
